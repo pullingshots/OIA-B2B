@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio - Designer Edition 7.1.4.1284 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:ns0="http://ws.outdoorindustry.org/v2" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation=".\oiab2b_v2.xsd" namespace="http://ws.outdoorindustry.org/v2" />
+  <xs:complexType name="ASN">
+    <xs:annotation>
+      <xs:documentation>ASN document</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DocumentID">
+        <xs:annotation>
+          <xs:documentation>A globally unique identifier for this document. The DocumentID should never be repeated. GUID's work well for this field.  This field is not the same as the PO number.  </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:minLength value="1" />
+            <xs:maxLength value="200" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ASNNumber" type="xs:token">
+        <xs:annotation>
+          <xs:documentation>ASNNumber is an identifier that the vendor assigns to the ASN.  Often, this identifier will be referenced in verbal or written communication between the retailer and vendor.  It will also be used in some of the data exchanges between the retailer and vendor.  The ASNNumber needs to be unique in the interactions for one vendor/retailer partnership.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Vendor" type="ns0:Vendor" />
+      <xs:element name="Retailer" type="ns0:Retailer" />
+      <xs:element name="PONumber" type="xs:token">
+        <xs:annotation>
+          <xs:documentation>PONumber is an identifier that the retailer assigns to the PO.  Often, this identifier will be referenced in verbal or written communication between the retailer and vendor.  The PONumber needs to be unique in the interactions for one vendor/retailer partnership.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ASNDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date that the product was shipped</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShipTo" type="ns0:Address">
+        <xs:annotation>
+          <xs:documentation>The ship to address for the items on this PO</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="VendorShipToID" type="xs:token">
+        <xs:annotation>
+          <xs:documentation>Optional. The vendor system will sometimes have a shipping address identifier for the retailers locations.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BillTo" type="ns0:Address">
+        <xs:annotation>
+          <xs:documentation>The billing address that the invoice for this PO should be mailed to. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="VendorBillToID" type="xs:token">
+        <xs:annotation>
+          <xs:documentation>Optional. The vendor system will sometimes have a billing address identifier for the retailers locations.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ASNNote" type="xs:token">
+        <xs:annotation>
+          <xs:documentation>Free form notes about the order.  If included, they should be read by the retailer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Containers">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Container">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="FOBPoint" type="ns0:FOBPoint" />
+                  <xs:element minOccurs="0" name="FOBPointOther" type="xs:token" />
+                  <xs:element name="ShippingAgent" type="ns0:ShippingAgent" />
+                  <xs:element minOccurs="0" name="ShippingAgentOther" type="xs:token" />
+                  <xs:element name="DeliverySpecification" type="ns0:DeliverySpecification" />
+                  <xs:element minOccurs="0" name="DeliverySpecificationOther" type="xs:token" />
+                  <xs:element name="FreightBillingMethod" type="ns0:FreightBillingMethod" />
+                  <xs:element minOccurs="0" name="BillToRetailerAccountInfo" type="xs:token">
+                    <xs:annotation>
+                      <xs:documentation>Used to provide account information to the vendor about the retailer's shipping account. </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="TransportComments" type="xs:token" />
+                  <xs:element name="ContainerID">
+                    <xs:annotation>
+                      <xs:documentation>A unique identifier for each container included in the ASN.  The identifier does not need to be unique across all shipments, just within this ASN. This value is used in the item list below to specify which container a product is in.  Possible examples: '1 of 2' or 'Box 1' or '1'.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:token" />
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="TrackingNumber" type="xs:token" />
+                  <xs:element minOccurs="0" name="Weight">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:decimal">
+                          <xs:attribute name="Unit" type="xs:token" use="optional" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="CartonMarking" type="xs:token">
+                    <xs:annotation>
+                      <xs:documentation>UCC/EAN-128 Serial Shipping Container Code Format. This a twenty-character code.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="Other" type="xs:token">
+                    <xs:annotation>
+                      <xs:documentation>Additional Information pertaining to this container</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Products">
+                    <xs:annotation>
+                      <xs:documentation>Listing of products in the container</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Product">
+                          <xs:annotation>
+                            <xs:documentation>Repeating element that contains an individual item</xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:complexContent mixed="false">
+                              <xs:extension base="ns0:BaseLineItem">
+                                <xs:sequence>
+                                  <xs:element name="Quantity" type="xs:integer">
+                                    <xs:annotation>
+                                      <xs:documentation>The amount shipped for this product in the container specified</xs:documentation>
+                                    </xs:annotation>
+                                  </xs:element>
+                                  <xs:element minOccurs="0" name="UnitPrice" type="ns0:MonetaryAmount">
+                                    <xs:annotation>
+                                      <xs:documentation>The price per item (designated by the UPC_EAN).</xs:documentation>
+                                    </xs:annotation>
+                                  </xs:element>
+                                  <xs:element name="LineNumber" type="xs:integer">
+                                    <xs:annotation>
+                                      <xs:documentation>Sequential number for each item in the PO. </xs:documentation>
+                                    </xs:annotation>
+                                  </xs:element>
+                                  <xs:element minOccurs="0" name="LineComment" type="xs:string" />
+                                </xs:sequence>
+                              </xs:extension>
+                            </xs:complexContent>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

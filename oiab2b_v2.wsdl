@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Outdoor B2B Spec Version 2.0
+-->
+<wsdl:definitions xmlns:oi="http://ws.outdoorindustry.org/v2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://ws.outdoorindustry.org/v2" >
+	<wsdl:types>
+		<xsi:schema targetNamespace="http://ws.outdoorindustry.org/ws/" xmlns:xsi="http://www.w3.org/2001/XMLSchema" xmlns="http://ws.outdoorindustry.org/ws/" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+			<xsi:import namespace="http://ws.outdoorindustry.org/v2" schemaLocation="oiab2b_v2.xsd"/>
+		</xsi:schema>
+	</wsdl:types>
+	<wsdl:message name="AvailableToSellRequest">
+		<wsdl:part name="atsInquiry" element="oi:atsInquiry"/>
+	</wsdl:message>
+	<wsdl:message name="AvailableToSellResponse">
+		<wsdl:part name="availableToSell" element="oi:availableToSell"/>
+	</wsdl:message>
+	<wsdl:message name="POResponse">
+		<wsdl:part name="documentReceipt" element="oi:documentReceipt"/>
+	</wsdl:message>
+	<wsdl:message name="B2BiWebServicesFault">
+		<wsdl:part name="b2biFault" element="oi:b2biFault"/>
+	</wsdl:message>
+	<wsdl:message name="CatalogRequest">
+		<wsdl:part name="catalogRequest" element="oi:catalogRequest"/>
+	</wsdl:message>
+	<wsdl:message name="CatalogResponse">
+		<wsdl:part name="catalog" element="oi:catalog"/>
+	</wsdl:message>
+	<wsdl:message name="CatalogListRequest">
+		<wsdl:part name="catalogListInfo" element="oi:catalogListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="CatalogListResponse">
+		<wsdl:part name="catalogList" element="oi:catalogList"/>
+	</wsdl:message>
+	<wsdl:message name="POSubmitRequest">
+		<wsdl:part name="submitPO" element="oi:submitPO"/>
+	</wsdl:message>
+	<wsdl:portType name="B2BiPort">
+		<wsdl:operation name="ATSCheck">
+			<wsdl:input message="oi:AvailableToSellRequest"/>
+			<wsdl:output message="oi:AvailableToSellResponse"/>
+			<wsdl:fault name="B2BiFault" message="oi:B2BiWebServicesFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="POSubmit">
+			<wsdl:input message="oi:POSubmitRequest"/>
+			<wsdl:output message="oi:POResponse"/>
+			<wsdl:fault name="B2BiFault" message="oi:B2BiWebServicesFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="CatalogRequest">
+			<wsdl:input message="oi:CatalogRequest"/>
+			<wsdl:output message="oi:CatalogResponse"/>
+			<wsdl:fault name="B2BiFault" message="oi:B2BiWebServicesFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="CatalogListRequest">
+			<wsdl:input message="oi:CatalogListRequest"/>
+			<wsdl:output message="oi:CatalogListResponse"/>
+			<wsdl:fault name="B2BiFault" message="oi:B2BiWebServicesFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="B2BiBinding" type="oi:B2BiPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ATSCheck">
+			<wsdl:documentation>A web service to check availability</wsdl:documentation>
+			<soap:operation soapAction="http://ws.outdoorindustry.org/ATSCheck"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="B2BiFault">
+				<soap:fault name="B2BiFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="POSubmit">
+			<wsdl:documentation>A web service for submitting PO document.</wsdl:documentation>
+			<soap:operation soapAction="http://ws.outdoorindustry.org/POSubmit"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="B2BiFault">
+				<soap:fault name="B2BiFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CatalogRequest">
+			<soap:operation soapAction="http://ws.outdoorindustry.org/CatalogRequest"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="B2BiFault">
+				<soap:fault name="B2BiFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CatalogListRequest">
+			<soap:operation soapAction="http://ws.outdoorindustry.org/CatalogListRequest"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="B2BiFault">
+				<soap:fault name="B2BiFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="B2BiService">
+		<wsdl:port name="B2BiService" binding="oi:B2BiBinding">
+			<soap:address location="http://localhost/WS/Service1.asmx"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
